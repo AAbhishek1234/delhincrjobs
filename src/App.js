@@ -31,7 +31,7 @@ const App = () => {
  <Route path="/companies" element={<Companies />} />
         <Route path="/contact" element={<Contact />} />
         {/* New Company Auth route */}
-        <Route path="/compnay-log" element={<AdminLogin />} />
+        {/* <Route path="/compnay-log" element={<AdminLogin />} /> */}
 <Route path="/jobdetails/:id" element={<JobDetailsPage/>}/>
         {/* AdminPannel now checks both flags */}
         <Route
