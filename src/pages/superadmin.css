@@ -1,0 +1,365 @@
+/* Container & Layout */
+.sa-container {
+  --gap: 15px;
+  --radius: 12px;
+  --shadow: 0 3px 8px rgba(0,0,0,0.05);
+  --transition: 0.25s ease;
+  font-family: Arial, sans-serif;
+  padding: 20px 24px 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+  position: relative;
+  color: #1e2a33;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+/* Sticky header on small screens for easier navigation */
+.sa-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 20;
+  padding: 8px 0;
+}
+
+.sa-title {
+  font-size: 1.7rem;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+.sa-header-right {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sa-btn {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: .3px;
+  border-radius: 28px;
+  padding: 10px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.sa-btn.refresh {
+  background: #8e44ad;
+  color: #fff;
+}
+
+.sa-btn.logout {
+  background: #3498db;
+  color: #fff;
+}
+
+.sa-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.sa-btn:active {
+  transform: translateY(0);
+}
+
+.sa-tabs-wrapper {
+  position: sticky;
+  top: 64px; /* below header */
+  background: #fff;
+  z-index: 15;
+  padding: 4px 0 12px;
+}
+
+.sa-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+}
+
+.sa-tabs::-webkit-scrollbar {
+  height: 6px;
+}
+.sa-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sa-tabs::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 10px;
+}
+
+.sa-tab-btn {
+  flex: 0 0 auto;
+  background: #ecf0f1;
+  border: 1px solid #d0d7de;
+  padding: 8px 16px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: var(--transition);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sa-tab-btn.active {
+  background: #2c3e50;
+  color: #fff;
+  border-color: #2c3e50;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+}
+
+.sa-tab-btn:hover:not(.active) {
+  background: #dde3e6;
+}
+
+/* Content area */
+.sa-content {
+  min-height: 300px;
+  margin-top: 4px;
+}
+
+/* Grid */
+.sa-grid {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+}
+
+@media (max-width: 900px) {
+  .sa-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .sa-grid {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .sa-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card */
+.sa-card {
+  border: 1px solid #e1e4e8;
+  background: #fdfdfd;
+  border-radius: var(--radius);
+  padding: 14px 15px 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  word-break: break-word;
+  transition: var(--transition);
+}
+
+.sa-card:hover {
+  border-color: #cfd6dc;
+  transform: translateY(-2px);
+}
+
+.sa-card p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.3;
+}
+
+.sa-desc {
+  font-size: 0.78rem;
+  color: #333;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 14px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: .5px;
+  background: #d7dde2;
+  color: #1b2a33;
+}
+
+.status-approved {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.status-pending {
+  background: #f1c40f;
+  color: #1e2a33;
+}
+
+.status-rejected {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* Inline actions */
+.sa-inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.sa-small-btn {
+  flex: 1 1 auto;
+  min-width: 90px;
+  background: #555;
+  border: none;
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: .4px;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.sa-small-btn.approve { background: #27ae60; }
+.sa-small-btn.reject { background: #e67e22; }
+.sa-small-btn.delete { background: #e74c3c; }
+
+.sa-small-btn:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+.sa-small-btn:active {
+  transform: translateY(0);
+}
+
+/* Dedicated delete button for company card */
+.sa-delete-btn {
+  margin-top: 10px;
+  background: #e74c3c;
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: .4px;
+  align-self: start;
+  transition: var(--transition);
+}
+
+.sa-delete-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* Loading overlay */
+.sa-loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(3px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  font-weight: 600;
+  letter-spacing: .5px;
+  font-size: 0.95rem;
+}
+
+.spinner {
+  width: 46px;
+  height: 46px;
+  border: 5px solid #d0d7de;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Inline loading text */
+.sa-loading-inline {
+  font-size: .9rem;
+  opacity: .8;
+  margin: 12px 4px;
+}
+
+/* Focus States */
+.sa-tab-btn:focus,
+.sa-small-btn:focus,
+.sa-delete-btn:focus,
+.sa-btn:focus {
+  outline: 3px solid #2980b9;
+  outline-offset: 1px;
+}
+
+/* Smaller screens adjustments */
+@media (max-width: 600px) {
+  .sa-title {
+    font-size: 1.35rem;
+  }
+  .sa-btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+  .sa-tab-btn {
+    font-size: 0.75rem;
+    padding: 7px 14px;
+  }
+  .sa-card p {
+    font-size: 0.78rem;
+  }
+  .sa-small-btn {
+    font-size: 0.67rem;
+    padding: 6px 8px;
+  }
+  .sa-inline-actions {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 420px) {
+  .sa-inline-actions {
+    flex-direction: column;
+  }
+  .sa-small-btn {
+    width: 100%;
+  }
+  .sa-btn {
+    flex: 1;
+  }
+  .sa-header-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
