@@ -33,7 +33,7 @@ const ApplicantCard = ({ app }) => {
               rel="noopener noreferrer"
               className="text-blue-500 underline mr-4"
             >
-              View Resume
+              Viewwww Resume
             </a>
             <button
               onClick={() => forceDownload(app.resume || app.resumeUrl, `${app.name}-resume.pdf`)}
