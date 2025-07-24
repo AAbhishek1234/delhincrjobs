@@ -472,21 +472,31 @@ const ViewApplications = () => {
             <p><strong>Name:</strong> {app.name || "—"}</p>
             <p><strong>Email:</strong> {app.email || "—"}</p>
             <p><strong>Phone:</strong> {app.phone || "—"}</p>
-            <p>
-              <strong>Resume:</strong>{" "}
-              {app.resume || app.resumeUrl ? (
-                <a
-                  href={app.resume || app.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  View Resummmmme
-                </a>
-              ) : (
-                "Not uploaded"
-              )}
-            </p>
+           <p>
+  <strong>Resume:</strong>{" "}
+  {app.resume || app.resumeUrl ? (
+    <>
+      <a
+        href={app.resume || app.resumeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-500 underline mr-3"
+      >
+        View Resume
+      </a>
+      <a
+        href={app.resume || app.resumeUrl}
+        download
+        className="text-green-600 underline"
+      >
+        Download Resume
+      </a>
+    </>
+  ) : (
+    "Not uploaded"
+  )}
+</p>
+
 
             <button
               onClick={() => handleDelete(app)}
