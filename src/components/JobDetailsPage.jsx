@@ -489,6 +489,9 @@ import {
   getDocs,
   Timestamp
 } from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -579,13 +582,33 @@ const JobDetails = () => {
         jobId: id,
         createdAt: Timestamp.now(),
       });
+toast.success("🎉 Your application has been submitted!", {
+  position: "top-center",
+  autoClose: 3500,
+  style: {
+    borderRadius: "10px",
+    background: "#1E3A8A",
+    color: "#fff",
+    fontSize: "16px",
+    fontWeight: "500",
+  },
+});
 
-      alert("✅ Application submitted successfully!");
       setAlreadyApplied(true);
       setShowForm(false);
     } catch (error) {
       console.error("Submission error:", error);
-      alert("Something went wrong. Please try again.");
+      toast.error("❌ Something went wrong. Please try again.", {
+        position: "top-center",
+        autoClose: 3500,
+        style: {
+          borderRadius: "10px",
+          background: "#B91C1C",
+          color: "#fff",
+          fontSize: "16px",
+          fontWeight: "500",
+        },
+      });
       setIsUploading(false);
     }
   };
@@ -617,10 +640,20 @@ const JobDetails = () => {
   return (
     <>
       <Navbar />
+       <ToastContainer
+  position="top-center"
+  autoClose={3500}
+  hideProgressBar={false}
+  newestOnTop={false}
+  closeOnClick
+  pauseOnHover
+  draggable
+  theme="colored"
+/>
     <div className="max-w-5xl mx-auto mt-12 px-6 py-10 rounded-3xl backdrop-blur-md bg-white/80 shadow-xl border border-slate-200 transition-all duration-300">
   {/* Job Title and Company */}
   <div className="mb-8">
-    <h1 className="text-4xl font-bold text-slate-900 tracking-tight">{job.title}</h1>
+    <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{job.title}</h1>
     <p className="text-lg text-slate-600 mt-1">{job.company}</p>
   </div>
 
@@ -717,24 +750,36 @@ const JobDetails = () => {
         />
         {phoneError && <p className="text-red-500 text-sm">{phoneError}</p>}
 
-        <input
-          type="text"
-          name="course"
-          placeholder="Qualification"
-          value={formData.course}
-          onChange={handleChange}
-          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          required
-        />
 
-        <input
-          type="file"
-          name="resume"
-          accept=".pdf,.doc,.docx"
-          onChange={handleChange}
-          className="w-full border border-gray-300 p-3 rounded-lg"
-          required
-        />
+      <div className="mb-6">
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    Upload Your Resume
+  </label>
+
+  <div className="flex items-center">
+    <label
+      htmlFor="resume"
+      className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm cursor-pointer hover:bg-blue-700 transition"
+    >
+      Choose File
+    </label>
+    <span className="ml-4 text-gray-500 text-sm" id="file-name">
+      No file selected
+    </span>
+    <input
+      type="file"
+      id="resume"
+      name="resume"
+      accept=".pdf,.doc,.docx"
+      className="hidden"
+      onChange={(e) => {
+        handleChange(e);
+        const fileName = e.target.files[0]?.name || "No file selected";
+        document.getElementById("file-name").textContent = fileName;
+      }}
+    />
+  </div>
+</div>
 
         {isUploading && (
           <div className="w-full bg-gray-200 rounded h-2">
@@ -753,6 +798,8 @@ const JobDetails = () => {
         </button>
       </form>
     </div>
+   
+
   </div>
 )}
 

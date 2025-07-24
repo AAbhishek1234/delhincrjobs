@@ -4,17 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { AuthProvider } from "./context/AuthContext";
+import { LoaderProvider } from "./pages/LoderContext"; // ✅ adjust path as needed
 
-import { LoaderProvider } from './pages/LoderContext'
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-   <LoaderProvider>  <React.StrictMode>
-    <App />
-  </React.StrictMode></LoaderProvider>
-
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <LoaderProvider>
+        <App />
+      </LoaderProvider>
+    </AuthProvider>
+  </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

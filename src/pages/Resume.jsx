@@ -320,6 +320,7 @@ import {
   getDoc,          // <-- added
 } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
+import Navbar from "../components/Navbar"; // Assuming you have a Navbar component
 
 const ViewApplications = () => {
   const { jobId } = useParams();                // jobId from route
@@ -459,14 +460,16 @@ const handleDownload = async (url) => {
 };
 
   return (
+    <>
+     <Navbar></Navbar>
     <div className="p-6 relative">
       {/* Logout button */}
-      <button
+      {/* <button
         onClick={handleLogout}
         className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded"
       >
         Logout
-      </button>
+      </button> */}
 
       <h1 className="text-2xl font-bold mb-4">Applications</h1>
 
@@ -523,6 +526,7 @@ const handleDownload = async (url) => {
         ))
       )}
     </div>
+    </>
   );
 };
 

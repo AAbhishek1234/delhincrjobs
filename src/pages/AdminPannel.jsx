@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from "react";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { db } from "../firebase";
@@ -15,6 +14,9 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "sonner";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 // Telegram Config (from .env)
 const TELEGRAM_BOT_TOKEN = process.env.REACT_APP_TG_BOT_TOKEN;
@@ -92,7 +94,7 @@ const CompanyDashboard = () => {
         fetchJobs(u.uid);
         await fetchCompanyName(u.uid);
       } else {
-        window.location.href = "/CompanyLogin";
+        window.location.href = "/";
       }
     });
     return () => unsubscribe();
@@ -148,7 +150,7 @@ const CompanyDashboard = () => {
       setJobs(enrichedJobs);
     } catch (err) {
       console.error("fetchJobs error:", err);
-      alert("Failed to load your jobs.");
+      toast.error("Failed to load your jobs.");
     }
   }, []);
 
@@ -174,7 +176,7 @@ const CompanyDashboard = () => {
 
   const handleAddJob = async (e) => {
     e.preventDefault();
-    if (!user) return alert("User not authenticated");
+    if (!user) return toast.error("User not authenticated");
 
     const jobData = {
       ...newJob,
@@ -193,7 +195,7 @@ const CompanyDashboard = () => {
         if (editingJob.globalJobId) {
           await updateDoc(doc(db, "jobs", editingJob.globalJobId), jobData);
         }
-        alert("✅ Job updated!");
+        toast.success("Job updated!");
       } else {
         const globalDocRef = await addDoc(collection(db, "jobs"), jobData);
         await addDoc(collection(db, `companies/${user.uid}/jobs`), {
@@ -201,7 +203,9 @@ const CompanyDashboard = () => {
           globalJobId: globalDocRef.id,
         });
         sendTelegramNotification(jobData, globalDocRef.id);
-        alert("✅ Job posted! Awaiting approval.");
+        toast.success("Job posted! Awaiting approval.", {
+          id: "job-posted",
+        });
       }
 
       setNewJob({
@@ -223,14 +227,16 @@ const CompanyDashboard = () => {
       fetchJobs(user.uid);
     } catch (error) {
       console.error("Error:", error);
-      alert("❌ Failed to post or update job.");
+      toast.error("Failed to post or update job.", {
+        id: "job-failedorupdate",
+      });
     }
   };
 
   const handleDeleteJob = async (id) => {
     try {
       const jobToDelete = jobs.find((job) => job.id === id);
-      if (!jobToDelete) return alert("Job not found");
+      if (!jobToDelete) return toast.error("Job not found");
 
       await deleteDoc(doc(db, `companies/${user.uid}/jobs`, id));
 
@@ -239,10 +245,14 @@ const CompanyDashboard = () => {
       }
 
       setJobs((prev) => prev.filter((job) => job.id !== id));
-      alert("🗑️ Job deleted!");
+      toast.success("Job deleted!", {
+        id: "job-deleted",
+      });
     } catch (err) {
       console.error("Delete error:", err);
-      alert("❌ Failed to delete job.");
+      toast.error("Failed to delete job.", {
+        id: "job-delete-failed",
+      });
     }
   };
 
@@ -256,22 +266,26 @@ const CompanyDashboard = () => {
   const handleLogout = async () => {
     await signOut(auth);
     window.location.href = "/AdminLogin";
+    
   };
 
   return (
-    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen">
+    <>
+    <Navbar></Navbar>
+      {/* <Toaster position="top-right" richColors /> */}
+      <div className="p-4 sm:p-6 bg-gray-100 min-h-screen">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
         <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
-          Hello {companyName ? `! ${companyName}` : "!"}
+          Hello {companyName ? ` ${companyName}` : "!"}
         </h1>
 
         <div className="flex gap-2 w-full sm:w-auto">
-          <button
+          {/* <button
             onClick={handleLogout}
             className="bg-red-500 text-white px-5 py-2 rounded w-full sm:w-auto"
           >
             Logout
-          </button>
+          </button> */}
 
           <button
             onClick={() => {
@@ -402,7 +416,6 @@ const CompanyDashboard = () => {
                   {job.category} | ₹{job.salary} | {job.experience} yrs exp
                 </p>
                 <p className="mt-2 text-sm">{job.description}</p>
-
                 <span
                   className={`inline-block mt-2 text-xs px-2 py-1 rounded ${
                     job.status === "pending"
@@ -435,6 +448,8 @@ const CompanyDashboard = () => {
         )}
       </div>
     </div>
+    <Footer></Footer>
+    </>
   );
 };
 

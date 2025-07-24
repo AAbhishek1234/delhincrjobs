@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import BeOurPartner from "../components/BeOurPartner";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -30,6 +31,7 @@ const Contact = () => {
   return (
     <>
     <Navbar></Navbar>
+    {/* <BeOurPartner></BeOurPartner> */}<BeOurPartner></BeOurPartner>
     <div className="min-h-screen bg-gray-50 py-10 px-4 md:px-10">
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-8">
         <h2 className="text-3xl font-bold text-blue-600 mb-6 text-center">

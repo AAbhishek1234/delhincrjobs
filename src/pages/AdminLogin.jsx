@@ -184,6 +184,10 @@
 
 
 
+
+
+
+///222222222222222222/////////////////////
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -193,6 +197,9 @@ import {
 } from "firebase/auth";
 import { db } from "../firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { toast } from "sonner"; // ✅ modern toast system
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const CompanyAuth = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -209,12 +216,7 @@ const CompanyAuth = () => {
 
     try {
       if (isRegister) {
-        // Register
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const uid = userCredential.user.uid;
 
         await setDoc(doc(db, "companies", uid), {
@@ -225,14 +227,12 @@ const CompanyAuth = () => {
         });
 
         localStorage.setItem("companyId", uid);
-        navigate("/AdminPannel");
+
+        toast.success("Registration Successful 🎉");
+
+        setTimeout(() => navigate("/AdminPannel"), 1500);
       } else {
-        // Login
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const uid = userCredential.user.uid;
 
         const companyRef = doc(db, "companies", uid);
@@ -240,18 +240,22 @@ const CompanyAuth = () => {
 
         if (companySnap.exists()) {
           localStorage.setItem("companyId", uid);
-          navigate("/AdminPannel");
+
+          toast.success("Login Successful ✅");
+
+          setTimeout(() => navigate("/AdminPannel"), 1000);
         } else {
-          alert("Access denied: No company profile found.");
+          toast.error("Access Denied ❌ - No company profile found.");
         }
       }
     } catch (error) {
-      console.error("Auth Error:", error.message);
-      alert(error.message);
+      toast.error(`No Company Account Found ❌ `);
     }
   };
 
   return (
+    <>
+    <Navbar>    </Navbar>
     <div className="bg-white p-6 rounded-lg shadow max-w-md mx-auto mt-10">
       <h2 className="text-xl font-bold text-center mb-4">
         {isRegister ? "Register Your Company" : "Employers Login"}
@@ -266,7 +270,6 @@ const CompanyAuth = () => {
               onChange={(e) => setCompanyName(e.target.value)}
               className="w-full mb-3 px-4 py-2 border rounded"
               required
-              autoComplete="organization"
             />
             <input
               type="text"
@@ -280,12 +283,11 @@ const CompanyAuth = () => {
         )}
         <input
           type="email"
-          placeholder="Your EmailId"
+          placeholder="Your Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full mb-3 px-4 py-2 border rounded"
           required
-          autoComplete="email"
         />
         <input
           type="password"
@@ -294,7 +296,6 @@ const CompanyAuth = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full mb-3 px-4 py-2 border rounded"
           required
-          autoComplete="current-password"
         />
 
         <button
@@ -319,6 +320,8 @@ const CompanyAuth = () => {
         </button>
       </p>
     </div>
+    <Footer></Footer>
+    </>
   );
 };
 
