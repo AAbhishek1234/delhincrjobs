@@ -442,6 +442,21 @@ const ViewApplications = () => {
     await signOut(auth);
     navigate("/AdminLogin");
   };
+const handleDownload = async (url) => {
+  try {
+    const response = await fetch(url, { mode: "cors" });
+    const blob = await response.blob();
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "resume.pdf"; // Optional: customize filename
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error("Error downloading file:", error);
+    alert("Failed to download resume. Please try again.");
+  }
+};
 
   return (
     <div className="p-6 relative">
@@ -472,7 +487,7 @@ const ViewApplications = () => {
             <p><strong>Name:</strong> {app.name || "—"}</p>
             <p><strong>Email:</strong> {app.email || "—"}</p>
             <p><strong>Phone:</strong> {app.phone || "—"}</p>
-           <p>
+       <p>
   <strong>Resume:</strong>{" "}
   {app.resume || app.resumeUrl ? (
     <>
@@ -484,18 +499,18 @@ const ViewApplications = () => {
       >
         View Resume
       </a>
-      <a
-        href={app.resume || app.resumeUrl}
-        download
+      <button
+        onClick={() => handleDownload(app.resume || app.resumeUrl)}
         className="text-green-600 underline"
       >
         Download Resume
-      </a>
+      </button>
     </>
   ) : (
     "Not uploaded"
   )}
 </p>
+
 
 
             <button
