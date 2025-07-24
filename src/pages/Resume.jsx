@@ -481,7 +481,7 @@ const ViewApplications = () => {
                   rel="noopener noreferrer"
                   className="text-blue-500 underline"
                 >
-                  View Resume
+                  View Resummmmme
                 </a>
               ) : (
                 "Not uploaded"
