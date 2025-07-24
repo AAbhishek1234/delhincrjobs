@@ -89,6 +89,7 @@ const ViewApplications = () => {
                 <a
                   href={app.resume || app.resumeUrl}
                   target="_blank"
+                  download
                   rel="noopener noreferrer"
                   className="text-blue-500 underline"
                 >
