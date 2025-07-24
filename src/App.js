@@ -14,6 +14,8 @@ import SuperAdminLogin from "./pages/SuperAdminLogin";
 import SuperAdmin from "./pages/SuperAdmin";
 import SuperAdminRoute from "./pages/SuperAdminRoute";
 import CompanyApplicants from './pages/CompanyApplicants';
+import ViewApplications from "./pages/ViewJobApplicants";
+import ViewJobApplicants from "./pages/ViewJobApplicants";
 // import BeOurPartner from './components/BeOurPartner';
 const App = () => {
   const isAdmin = localStorage.getItem("isAdmin") === "true";
@@ -56,6 +58,8 @@ const App = () => {
     element={<CompanyApplicants />}
   />
    {/* <Route path="/beourpartner" element={<BeOurPartner />} /> */}
+   <Route path="/approved-jobs/:jobId/applicants" element={<ViewJobApplicants />} />
+
       </Routes>
     </Router>
   );
