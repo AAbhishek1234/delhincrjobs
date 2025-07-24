@@ -87,9 +87,9 @@ const ViewApplications = () => {
               <strong>Resume:</strong>{" "}
               {app.resume || app.resumeUrl ? (
                 <a
-                  href={app.resume || app.resumeUrl}
+                   href={`${app.resume || app.resumeUrl}?alt=media`}
                   target="_blank"
-                  download
+                  
                   rel="noopener noreferrer"
                   className="text-blue-500 underline"
                 >
