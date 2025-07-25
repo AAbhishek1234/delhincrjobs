@@ -5,6 +5,7 @@ import { useAuth } from "./context/AuthContext";
 import Home from "./pages/Home";
 import FindJobs from "./pages/FindJobs";
 import AdminLogin from "./pages/AdminLogin";
+import ScrollToTop from "./components/ScrollToTop";
 import AdminPannel from "./pages/AdminPannel";
 import Companies from "./pages/Companies";
 import Contact from "./pages/Contact";
@@ -23,6 +24,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop/>
       <Toaster richColors position="top-center" /> 
       <Routes>
         <Route path="/" element={<Home />} />

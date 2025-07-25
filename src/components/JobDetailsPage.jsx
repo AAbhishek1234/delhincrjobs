@@ -584,7 +584,7 @@ const JobDetails = () => {
       });
 toast.success("🎉 Your application has been submitted!", {
   position: "top-center",
-  autoClose: 3500,
+  autoClose: 5500,
   style: {
     borderRadius: "10px",
     background: "#1E3A8A",

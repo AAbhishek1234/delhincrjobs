@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoader } from "../pages/LoderContext"; // confirm this path
-
+import {
+  Code2, Palette, TrendingUp, Calculator, Heart,
+  GraduationCap, Building2, Users, Wrench, Truck,
+  Utensils, Camera, Shield, Briefcase, Globe, ChevronRight
+} from "lucide-react";
 const JobsListing = ({ filteredJobs = [] }) => {
   const navigate = useNavigate();
   const { showLoader, hideLoader } = useLoader();
@@ -115,7 +119,19 @@ const JobsListing = ({ filteredJobs = [] }) => {
           </p>
         </div>
       )}
+      <div className="flex justify-center mt-10">
+  <button
+    onClick={() => navigate("/findjobs")}
+    className="inline-flex items-center px-6 py-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition"
+  >
+    View All Jobs
+    <ChevronRight className="ml-2 w-5 h-5" />
+  </button>
+</div>
+
     </div>
+    
+
   );
 };
 

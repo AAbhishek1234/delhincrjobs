@@ -43,20 +43,23 @@ const Navbar = ({
   };
 
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <h1
-            className="text-2xl md:text-3xl font-bold text-blue-600 cursor-pointer"
-            onClick={() => {
-              if (handleBackToListings) handleBackToListings();
-              navigate("/");
-            }}
-          >
-            Delhi<span className="text-gray-800">NCR</span>
-            <span className="text-blue-600">Jobs</span>
-          </h1>
+<header className="bg-white shadow-md">
+  <div className="container mx-auto px-4 py-1">
+    <div className="flex justify-between items-center">
+      <div className="flex items-center h-[80px] p-0 m-0">
+        <img
+          src="/images/navlogo1.png"
+          alt="Site Logo"
+          className="h-full w-auto cursor-pointer object-contain m-0 p-0"
+          onClick={() => {
+            if (handleBackToListings) handleBackToListings();
+            navigate("/");
+          }}
+        />
+      </div>
+
+
+
 
           {/* Hamburger for mobile */}
           <div className="md:hidden">
@@ -118,7 +121,7 @@ const Navbar = ({
         <nav
           className={`${
             menuOpen ? "block" : "hidden"
-          } md:flex md:items-center md:justify-between border-t border-gray-200 pt-4 mt-4 md:mt-6`}
+          } md:flex md:items-center md:justify-between border-t border-gray-200 pt-4 mt-1 md:mt-2`}
         >
           <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0">
             <button
@@ -142,7 +145,7 @@ const Navbar = ({
               onClick={() => handleNavClick("find")}
             >
               <i className="fas fa-search mr-2"></i>
-              Find Jobs
+              Find All Jobs
             </button>
 
             <button
