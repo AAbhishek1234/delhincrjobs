@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import BeOurPartner from "../components/BeOurPartner";
-
+import { Helmet } from "react-helmet";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -30,6 +30,13 @@ const Contact = () => {
 
   return (
     <>
+    <Helmet>
+        <title>Contact Us | Jobs in Delhi NCR</title>
+        <meta
+          name="description"
+          content="Have questions or need help applying for a job in Delhi NCR? Contact our HR team directly. Fill out the form to get a callback."
+        />
+      </Helmet>
     <Navbar></Navbar>
     {/* <BeOurPartner></BeOurPartner> */}<BeOurPartner></BeOurPartner>
     <div className="min-h-screen bg-gray-50 py-10 px-4 md:px-10">

@@ -4,6 +4,8 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Helmet } from "react-helmet";
+
 
 // Hook to get query params
 const useQuery = () => new URLSearchParams(useLocation().search);
@@ -89,6 +91,13 @@ const FindJob = () => {
 
   return (
     <>
+     <Helmet>
+        <title>Find Jobs in Delhi NCR | Browse Latest Openings</title>
+        <meta
+          name="description"
+          content="Search and apply for the latest jobs in Delhi, Noida, and Gurgaon. Browse job categories and filter by company, location, or role. Start your career with JobsInDelhiNCR."
+        />
+      </Helmet>
       <Navbar />
       <div className="min-h-screen bg-gray-50 py-10 px-4">
         <div className="max-w-6xl mx-auto">
